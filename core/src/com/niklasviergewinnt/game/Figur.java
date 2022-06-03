@@ -10,14 +10,14 @@ public class Figur {
 
     private  int zeile;
 
-    //speichere Textur für Plättchen rot
+    // lege ein Feld für die Textur für Plättchen rot an
 
-    //speichere Textur für Plättchen gelb
+    // lege ein Feld für die Textur für Plättchen gelb an
 
-    // mache einen Konstruktor, der beide Texturen lädt
+    // lege eine Konstruktor-Funktion an, der beide Texturen aus dem assets Verzeichnis in die Felder lädt
 
     public void render(SpriteBatch batch) {
-        //Entscheide anhand des eigentümers, ob rot oder gelb gezeichnet werden soll und wähle die richtige Textur aus
+        // Entscheide anhand des eigentümers, ob rot oder gelb gezeichnet werden soll und wähle die richtige Textur aus
 
         // zeichne die ausgewählte Textur an die position zeile / spalte
     }
