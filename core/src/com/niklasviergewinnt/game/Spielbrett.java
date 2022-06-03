@@ -3,16 +3,19 @@ package com.niklasviergewinnt.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Spielbrett {
     private final Texture rahmen;
 
-    private final List <Figur> spielfiguren;
-    
-    int anzahlZeilen;
-    int anzahlSpalten;
+    private final Map<Point, Figur> spielfigurenGesetzt;
+
+    private int anzahlZeilen;
+    private int anzahlSpalten;
 
     public Spielbrett(int anzahlZeilen, int anzahlSpalten) {
         this.anzahlZeilen = anzahlZeilen;
@@ -20,9 +23,7 @@ public class Spielbrett {
 
         this.rahmen = new Texture("Rahmen.png");
 
-        spielfiguren = new ArrayList<>();
-
-
+        spielfigurenGesetzt = new HashMap<>();
     }
 
     public void render(SpriteBatch batch) {
@@ -33,8 +34,9 @@ public class Spielbrett {
             }
         }
 
-        for(Figur f : spielfiguren){
-            f.render(batch);
+        for(Point p : spielfigurenGesetzt.keySet()){
+            Figur f = spielfigurenGesetzt.get(p);
+            f.render(batch, p.x, p.y);
         }
 
     }
@@ -44,49 +46,35 @@ public class Spielbrett {
     }
 
     public boolean zug(Spieler spieler, int spalte){
-
-
         // prüfe ob der zug möglich ist oder
         // die spalte voll ist oder
         // die spalte nicht existiert
 
+        // wenn zug nicht möglich gebe false zurück
+        Point obersteZeileInUnsererSpalte = new Point(spalte, anzahlZeilen-1);
+        if( spielfigurenGesetzt.get(obersteZeileInUnsererSpalte) != null ||
+            spalte < 0 ||
+            spalte > anzahlSpalten - 1) {
+            return false;
+        }
 
-        for (int s = 0; s < anzahlSpalten; s++) {
-            for (int z = 0; z < anzahlZeilen; z++) {
-                if (spielfiguren.get(z) == null) {
-
-                }
+        // berechne die zeile in der spalte, an die das Plättchen fällt
+        Point positionVonDerNeuenFigur = null;
+        for( int z = anzahlZeilen-1; z >=0; z--){
+            Point p = new Point(spalte, z);
+            if(spielfigurenGesetzt.get(p) != null){
+               positionVonDerNeuenFigur = new Point(spalte, z+1);
+               break;
             }
         }
 
-
-
-
-        boolean frei = spielfiguren.isEmpty();
-        if (frei == true){
-            System.out.println("die Spalte ist leer");
-        } else {
-            System.out.println("die Spalte ist Voll");
-        }
-
-
-        // wenn zug nicht möglich gebe false zurück
-
-        if (frei =! true){
-            return false;
-
-        }
-
-
-
-
-        // berechne die zeile in der spalte, an die das Plättchen fällt
-
         // erzeuge eine Figur mit dem Eigentümer spieler an der Position spalte/zeile
+        Figur f = new Figur(spieler);
 
         // füge das erzeugte plättchen der Liste spielfiguren hinzu
+        spielfigurenGesetzt.put(positionVonDerNeuenFigur, f);
 
-
+        return true;
     }
 }
 
