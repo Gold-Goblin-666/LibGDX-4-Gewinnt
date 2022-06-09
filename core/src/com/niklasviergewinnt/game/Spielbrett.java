@@ -76,6 +76,15 @@ public class Spielbrett {
 
         return true;
     }
+
+    public boolean checkGameWon() {
+        // Hat einer gewonnen?
+
+    }
+
+    public Spieler getWinner() {
+        //Gib den Spieler zurück, der gewonnen hat
+    }
 }
 
 
