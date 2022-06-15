@@ -19,14 +19,23 @@ public class ConnectFour extends ApplicationAdapter {
 
     private Spieler spieler2;
 
+    private MyInputProcessor ip;
+
+    private boolean firstrender;
+
     @Override
     public void create() {
         batch = new SpriteBatch();
-        ioController = new IOControl();
+        ip = new MyInputProcessor();
+        ioController = new IOControl(ip);
         spielbrett = new Spielbrett (6, 8);
         zaehler = 0;
         spieler1 = new Spieler("Spieler1", "rot");
         spieler2 = new Spieler("Spieler2", "gelb");
+        Gdx.input.setInputProcessor(ip);
+        firstrender = true;
+
+
     }
 
     @Override
@@ -41,18 +50,29 @@ public class ConnectFour extends ApplicationAdapter {
         }else{
             spieler = spieler2;
         }
-        Integer i = ioController.readUserInput(spieler, batch);
-        if(i < 0){
-            this.dispose();
-        }
-        spielbrett.zug(spieler,i);
-
-        if(spielbrett.checkGameWon()){
-            Spieler s = spielbrett.getWinner();
-            ioController.printMessageOnScreen(s+" hat gewonnen." , batch, 32, 32);
-        };
-
         spielbrett.render(batch);
+        Integer i = null;
+
+        if (firstrender == false) {
+            try {
+                i = ioController.readUserInput(spieler, batch);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if(i < 0){
+                this.dispose();
+            }
+            spielbrett.zug(spieler,i);
+
+        }
+
+        firstrender = false ;
+
+//        if(spielbrett.checkGameWon()){
+//            Spieler s = spielbrett.getWinner();
+//            ioController.printMessageOnScreen(s+" hat gewonnen." , batch, 32, 32);
+//        };
+
         batch.end();
     }
 

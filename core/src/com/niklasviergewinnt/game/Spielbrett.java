@@ -58,7 +58,7 @@ public class Spielbrett {
             return false;
         }
 
-        // berechne die zeile in der spalte, an die das Plättchen fällt
+        // berechne die zeile in der spalte, an die das Plättchen fällt               (auf map zugegriffen )
         Point positionVonDerNeuenFigur = null;
         for( int z = anzahlZeilen-1; z >=0; z--){
             Point p = new Point(spalte, z);
