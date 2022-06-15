@@ -80,10 +80,15 @@ public class Spielbrett {
     public boolean checkGameWon() {
         // Hat einer gewonnen?
 
+        return true;
+
+
     }
 
     public Spieler getWinner() {
         //Gib den Spieler zurück, der gewonnen hat
+
+        return new Spieler(" ", "rot" );
     }
 }
 

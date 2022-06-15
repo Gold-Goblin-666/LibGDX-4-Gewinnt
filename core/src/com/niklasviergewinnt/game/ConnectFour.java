@@ -1,7 +1,9 @@
 package com.niklasviergewinnt.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -29,13 +31,17 @@ public class ConnectFour extends ApplicationAdapter {
 
     @Override
     public void render() {
+
+        ScreenUtils.clear(1, 0, 0, 1);
+
+        batch.begin();
         Spieler spieler;
         if(zaehler % 2 == 0){
             spieler = spieler1;
         }else{
             spieler = spieler2;
         }
-        Integer i = ioController.readUserInput(spieler);
+        Integer i = ioController.readUserInput(spieler, batch);
         if(i < 0){
             this.dispose();
         }
@@ -43,11 +49,9 @@ public class ConnectFour extends ApplicationAdapter {
 
         if(spielbrett.checkGameWon()){
             Spieler s = spielbrett.getWinner();
-            ioController.printMessageOnScreen(s+" hat gewonnen.");
+            ioController.printMessageOnScreen(s+" hat gewonnen." , batch, 32, 32);
         };
 
-        ScreenUtils.clear(1, 1, 1, 1);
-        batch.begin();
         spielbrett.render(batch);
         batch.end();
     }
