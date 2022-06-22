@@ -80,6 +80,33 @@ public class Spielbrett {
     public boolean checkGameWon() {
         // Hat einer gewonnen?
 
+
+        for ( int spalte = 0; spalte < anzahlSpalten){
+            for( int zeile = 0; zeile < anzahlZeilen ; zeile ++){
+
+
+
+
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         return true;
 
 
