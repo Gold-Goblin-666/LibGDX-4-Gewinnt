@@ -44,4 +44,27 @@ public class Figur {
         batch.draw(t, x, y);
        }
 
+    public Spieler getEigentuemer() {
+        return eigentuemer;
+    }
+
+    public void setEigentuemer(Spieler eigentuemer) {
+        this.eigentuemer = eigentuemer;
+    }
+
+    public Texture getPlaettchenRot() {
+        return plaettchenRot;
+    }
+
+    public void setPlaettchenRot(Texture plaettchenRot) {
+        this.plaettchenRot = plaettchenRot;
+    }
+
+    public Texture getPlaettchenGelb() {
+        return plaettchenGelb;
+    }
+
+    public void setPlaettchenGelb(Texture plaettchenGelb) {
+        this.plaettchenGelb = plaettchenGelb;
+    }
 }

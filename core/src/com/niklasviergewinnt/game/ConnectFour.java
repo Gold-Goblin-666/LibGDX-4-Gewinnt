@@ -41,7 +41,7 @@ public class ConnectFour extends ApplicationAdapter {
     @Override
     public void render() {
 
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(1, 0, 1, 1);
 
         batch.begin();
         Spieler spieler;
@@ -67,11 +67,10 @@ public class ConnectFour extends ApplicationAdapter {
         }
 
         firstrender = false ;
-
-//        if(spielbrett.checkGameWon()){
-//            Spieler s = spielbrett.getWinner();
-//            ioController.printMessageOnScreen(s+" hat gewonnen." , batch, 32, 32);
-//        };
+        Spieler s = spielbrett.checkGameWon();
+       if(s != null){
+            ioController.printMessageOnScreen(s.getName()+" hat gewonnen." , batch, 32, 32);
+        }
 
         batch.end();
     }

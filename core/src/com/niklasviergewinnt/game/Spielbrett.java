@@ -77,45 +77,108 @@ public class Spielbrett {
         return true;
     }
 
-    public boolean checkGameWon() {
+    public Spieler checkGameWon() {
         // Hat einer gewonnen?
 
 
-        for ( int spalte = 0; spalte < anzahlSpalten){
+        for ( int spalte = 0; spalte < anzahlSpalten; spalte ++){
             for( int zeile = 0; zeile < anzahlZeilen ; zeile ++){
 
 
 
+                //spalten  nach rechts:
 
+
+                if(spalte < anzahlSpalten - 3) {
+
+                    Figur f1 = extracted(spalte, zeile);
+                    Figur f2 = extracted(spalte + 1, zeile);
+                    Figur f3 = extracted(spalte + 2, zeile);
+                    Figur f4 = extracted(spalte + 3, zeile);
+
+                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                            f2.getEigentuemer() == f3.getEigentuemer() &&
+                            f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        return f1.getEigentuemer();
+
+                    }
+
+                }
+
+                //Zeilen nach unten:
+
+                if(zeile < anzahlZeilen - 3 ){
+
+                    Figur f1 = extracted(spalte, zeile);
+                    Figur f2 = extracted(spalte, zeile + 1);
+                    Figur f3 = extracted(spalte, zeile + 2);
+                    Figur f4 = extracted(spalte, zeile + 3);
+
+                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                            f2.getEigentuemer() == f3.getEigentuemer() &&
+                            f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        return f1.getEigentuemer();
+
+                    }
+
+                }
+
+                // Diagonal Rechts unten:
+
+                if(spalte < anzahlSpalten - 3 && zeile < anzahlZeilen - 3 ){
+
+                    Figur f1 = extracted(spalte, zeile);
+                    Figur f2 = extracted(spalte + 1, zeile + 1);
+                    Figur f3 = extracted(spalte + 2, zeile + 2);
+                    Figur f4 = extracted(spalte + 3, zeile + 3);
+
+                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                            f2.getEigentuemer() == f3.getEigentuemer() &&
+                            f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        return f1.getEigentuemer();
+
+                    }
+
+                }
+
+                // Diagonal Links unten:
+
+                if( zeile < anzahlZeilen - 3 && spalte > 3){
+
+                    Figur f1 = extracted(spalte, zeile);
+                    Figur f2 = extracted(spalte - 1, zeile + 1);
+                    Figur f3 = extracted(spalte - 2, zeile + 2);
+                    Figur f4 = extracted(spalte - 3, zeile + 3);
+
+                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                            f2.getEigentuemer() == f3.getEigentuemer() &&
+                            f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        return f1.getEigentuemer();
+
+                    }
+
+                }
 
             }
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return true;
-
+        return null;
 
     }
 
-    public Spieler getWinner() {
-        //Gib den Spieler zurück, der gewonnen hat
-
-        return new Spieler(" ", "rot" );
+    private Figur extracted(int spalte, int zeile) {
+        Point p = new Point(spalte, zeile);
+        if(spielfigurenGesetzt.containsKey(p)) {
+            Figur f = spielfigurenGesetzt.get(p);
+            return f;
+        }else{
+            return null;
+        }
     }
 }
 
