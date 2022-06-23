@@ -17,6 +17,8 @@ public class Spielbrett {
     private int anzahlZeilen;
     private int anzahlSpalten;
 
+    private boolean gameIsRunning;
+
     public Spielbrett(int anzahlZeilen, int anzahlSpalten) {
         this.anzahlZeilen = anzahlZeilen;
         this.anzahlSpalten = anzahlSpalten;
@@ -24,6 +26,8 @@ public class Spielbrett {
         this.rahmen = new Texture("Rahmen.png");
 
         spielfigurenGesetzt = new HashMap<>();
+
+        gameIsRunning = true ;
     }
 
     public void render(SpriteBatch batch) {
@@ -36,7 +40,7 @@ public class Spielbrett {
 
         for(Point p : spielfigurenGesetzt.keySet()){
             Figur f = spielfigurenGesetzt.get(p);
-            f.render(batch, p.x, p.y);
+            f.render(batch, p.x * 62 + 64, p.y * 62 + 64);
         }
 
     }
@@ -60,9 +64,9 @@ public class Spielbrett {
 
         // berechne die zeile in der spalte, an die das Plättchen fällt               (auf map zugegriffen )
         Point positionVonDerNeuenFigur = null;
-        for( int z = anzahlZeilen-1; z >=0; z--){
+        for( int z = anzahlZeilen-1; z >=-1; z--){
             Point p = new Point(spalte, z);
-            if(spielfigurenGesetzt.get(p) != null){
+            if(spielfigurenGesetzt.get(p) != null || z == -1){
                positionVonDerNeuenFigur = new Point(spalte, z+1);
                break;
             }
@@ -86,6 +90,8 @@ public class Spielbrett {
 
 
 
+
+
                 //spalten  nach rechts:
 
 
@@ -96,9 +102,12 @@ public class Spielbrett {
                     Figur f3 = extracted(spalte + 2, zeile);
                     Figur f4 = extracted(spalte + 3, zeile);
 
-                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                    if(     f1 != null && f2 != null && f3 != null && f4 != null &&
+                            f1.getEigentuemer() == f2.getEigentuemer() &&
                             f2.getEigentuemer() == f3.getEigentuemer() &&
                             f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        gameIsRunning = false;
 
                         return f1.getEigentuemer();
 
@@ -115,9 +124,12 @@ public class Spielbrett {
                     Figur f3 = extracted(spalte, zeile + 2);
                     Figur f4 = extracted(spalte, zeile + 3);
 
-                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                    if(     f1 != null && f2 != null && f3 != null && f4 != null &&
+                            f1.getEigentuemer() == f2.getEigentuemer() &&
                             f2.getEigentuemer() == f3.getEigentuemer() &&
                             f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        gameIsRunning = false;
 
                         return f1.getEigentuemer();
 
@@ -134,9 +146,12 @@ public class Spielbrett {
                     Figur f3 = extracted(spalte + 2, zeile + 2);
                     Figur f4 = extracted(spalte + 3, zeile + 3);
 
-                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                    if(     f1 != null && f2 != null && f3 != null && f4 != null &&
+                            f1.getEigentuemer() == f2.getEigentuemer() &&
                             f2.getEigentuemer() == f3.getEigentuemer() &&
                             f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        gameIsRunning = false;
 
                         return f1.getEigentuemer();
 
@@ -153,9 +168,12 @@ public class Spielbrett {
                     Figur f3 = extracted(spalte - 2, zeile + 2);
                     Figur f4 = extracted(spalte - 3, zeile + 3);
 
-                    if(     f1.getEigentuemer() == f2.getEigentuemer() &&
+                    if(     f1 != null && f2 != null && f3 != null && f4 != null &&
+                            f1.getEigentuemer() == f2.getEigentuemer() &&
                             f2.getEigentuemer() == f3.getEigentuemer() &&
                             f3.getEigentuemer() == f4.getEigentuemer()  ){
+
+                        gameIsRunning = false;
 
                         return f1.getEigentuemer();
 
@@ -171,6 +189,11 @@ public class Spielbrett {
 
     }
 
+
+
+
+
+
     private Figur extracted(int spalte, int zeile) {
         Point p = new Point(spalte, zeile);
         if(spielfigurenGesetzt.containsKey(p)) {
@@ -179,6 +202,14 @@ public class Spielbrett {
         }else{
             return null;
         }
+    }
+
+    public boolean isGameIsRunning() {
+        return gameIsRunning;
+    }
+
+    public void setGameIsRunning(boolean gameIsRunning) {
+        this.gameIsRunning = gameIsRunning;
     }
 }
 

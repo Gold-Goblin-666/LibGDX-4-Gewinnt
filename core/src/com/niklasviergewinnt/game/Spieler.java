@@ -10,6 +10,12 @@ public class Spieler {
 
     public Spieler(String name, String farbe) {
         this.name = name;
+        if (farbe == "rot") {
+            istRot = true;
+        }else {
+            istRot = false ;
+
+        }
     }
 
     public String getName() {

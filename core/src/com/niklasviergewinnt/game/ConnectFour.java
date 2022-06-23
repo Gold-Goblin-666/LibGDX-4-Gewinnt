@@ -13,8 +13,6 @@ public class ConnectFour extends ApplicationAdapter {
 
     private IOControl ioController;
 
-    private Integer zaehler;
-
     private Spieler spieler1;
 
     private Spieler spieler2;
@@ -26,50 +24,26 @@ public class ConnectFour extends ApplicationAdapter {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        ip = new MyInputProcessor();
-        ioController = new IOControl(ip);
-        spielbrett = new Spielbrett (6, 8);
-        zaehler = 0;
         spieler1 = new Spieler("Spieler1", "rot");
         spieler2 = new Spieler("Spieler2", "gelb");
+        spielbrett = new Spielbrett (6, 8);
+        ip = new MyInputProcessor(spielbrett,spieler1, spieler2);
+        ioController = new IOControl(ip);
         Gdx.input.setInputProcessor(ip);
         firstrender = true;
-
-
     }
 
     @Override
     public void render() {
-
         ScreenUtils.clear(1, 0, 1, 1);
-
         batch.begin();
-        Spieler spieler;
-        if(zaehler % 2 == 0){
-            spieler = spieler1;
-        }else{
-            spieler = spieler2;
-        }
         spielbrett.render(batch);
-        Integer i = null;
-
-        if (firstrender == false) {
-            try {
-                i = ioController.readUserInput(spieler, batch);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            if(i < 0){
-                this.dispose();
-            }
-            spielbrett.zug(spieler,i);
-
-        }
-
-        firstrender = false ;
         Spieler s = spielbrett.checkGameWon();
-       if(s != null){
+        if(s != null){
             ioController.printMessageOnScreen(s.getName()+" hat gewonnen." , batch, 32, 32);
+        }
+        if(ip.getLeave() == true){
+            dispose();
         }
 
         batch.end();
