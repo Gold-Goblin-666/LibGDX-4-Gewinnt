@@ -37,6 +37,7 @@ public class MyInputProcessor implements InputProcessor {
         }else{
             spieler = spieler2;
         }
+
         // game is running ?
 
         if (spielbrett.isGameIsRunning()){

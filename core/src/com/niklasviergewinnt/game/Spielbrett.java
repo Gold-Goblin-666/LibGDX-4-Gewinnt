@@ -57,6 +57,7 @@ public class Spielbrett {
         if( spielfigurenGesetzt.get(obersteZeileInUnsererSpalte) != null ||
             spalte < 0 ||
             spalte > anzahlSpalten - 1) {
+            zaehler - 1;
             return false;
         }
 
@@ -204,6 +205,12 @@ public class Spielbrett {
     public void setGameIsRunning(boolean gameIsRunning) {
         this.gameIsRunning = gameIsRunning;
     }
+
+
+
+
+
+
 }
 
 
