@@ -42,17 +42,11 @@ public class IOControl  {
 
     }
 
-
     public void printMessageOnScreen(String message, Batch batch , int x , int y){
         // zeichne die Meldung, die übergeben wurde auf den
 
         BitmapFont font = new BitmapFont();
-//        font = new BitmapFont(Gdx.files.internal("data/nameOfFont.fnt"),
-//                Gdx.files.internal("data/nameOfFont.png"), false);
-
         font.draw(batch, message , x , y);
-
-
 
     }
 }

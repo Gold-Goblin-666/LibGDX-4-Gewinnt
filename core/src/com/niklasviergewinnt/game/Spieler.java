@@ -1,6 +1,5 @@
 package com.niklasviergewinnt.game;
 
-import com.badlogic.gdx.graphics.Texture;
 
 public class Spieler {
 

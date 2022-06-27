@@ -17,30 +17,19 @@ public class MyInputProcessor implements InputProcessor {
    private Boolean leave;
 
 
-
-
-
-
-
    public MyInputProcessor(Spielbrett s, Spieler sp1, Spieler sp2 ) {
         zaehler=0;
        spielbrett = s;
        spieler1 = sp1;
        spieler2 = sp2;
        leave = false ;
-
    }
-
 
     @Override
     public boolean keyTyped(char character) {
         tasteGedrückt = character;
 
        int neu = Character.getNumericValue(character );
-
-
-
-
 
         Spieler spieler;
         if(zaehler % 2 == 0){
@@ -54,10 +43,7 @@ public class MyInputProcessor implements InputProcessor {
 
             spielbrett.zug(spieler,neu);
             zaehler++;
-
-
         }
-
 
         if( character == 'q'){
             leave = true;

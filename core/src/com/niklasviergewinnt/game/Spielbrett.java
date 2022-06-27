@@ -4,9 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Spielbrett {
@@ -188,11 +186,6 @@ public class Spielbrett {
         return null;
 
     }
-
-
-
-
-
 
     private Figur extracted(int spalte, int zeile) {
         Point p = new Point(spalte, zeile);
